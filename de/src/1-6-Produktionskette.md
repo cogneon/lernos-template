@@ -59,7 +59,7 @@ lernos-repository
 
 **Hinweis:** Im src-Verzeichnis kann der Leitfaden auch auf 1-2 Unterkapitelebene in einzelne Markdown-Dateien geteilt werden. Jede einzelne Markdown-Datei wird in der Webversion eine einzelne Seite (gut für thematische Kommentierung). Das ist z.B. auch sinnvoll, wenn mehrere Personen gleichzeitig an den Inhalten arbeiten oder die Inhalte in der Webversion auf Kapitelebene kommentierbar sein sollen.
 
-### lernOS Produktionskette
+### lernOS Produktionskette (on-premisis)
 
 Für die Erstellung der Zielformate aus den Markdown-Quellen wird ein sog. [Makefile](https://de.wikipedia.org/wiki/Makefile) verwendet. Auf Windows ist das die Datei *make.bat* ([Stabelverarbeitungsdatei]([https://de.wikipedia.org/wiki/Stapelverarbeitungsdatei)), auf Mac und Linux *make.sh* ([Shell-Skript]([https://de.wikipedia.org/wiki/Shellskript)).
 
@@ -117,11 +117,20 @@ ebook-convert $filename.epub $filename.mobi
 # pandoc metadata.yaml --from markdown -s --resource-path="./src" -t revealjs -V theme=night -s ./slides/index.md -o ../docs/de-slides/index.html
 ```
 
+### lernOS Produktionskette (Cloud)
+
+Die lernOS Produktionskette kann über [Github Actions](https://github.com/features/actions) auch in der Cloud betrieben werden, was deutlich einfach ist, als alle Tools auf dem lokalen Rechner zu installieren. Grundsätzlich funktioniert die Produktionskette ähnlich, wie on-premisis, mit kleinen Unterschieden:
+
+- Der Workflow der lernOS Produktionskette wird über die Datei `.github/workflows/lernos-produktionskette.yml` gesteuert.
+
+- Der Workflow läuft auf der aktuellen Ubuntu Linux Version.
+
+- Der Workflow verwendet die [Pandoc-Docker-Container](https://hub.docker.com/r/pandoc/core) (pandoc/core und pandoc/extra) und installiert mkdocs-material, um die einzelnen Artefakte zu erzeugen.
+
 ### Ideen für die Erweiterung der lernOS Produktionskette
 
 Wie auch die Leitfäden wird die lernOS Produktionskette kontinuierlich erweitert. Einige Ideen für die Erweiterung:
 
-* **Github Actions:** aktuell ist eine automatisierte Produktionskette mit [GitHub Actions](https://github.com/features/actions) in Vorbereitung.
 * **OneNote:** zusätzlich Produktion einer OneNote-Version der Leitfäden (aktuell nur als Begleitdokument, das manuell gepflegt werden muss).
 * **Audiobook:** Produktion eines Audiobooks mit Kapitelmarken zum Anhören (z.B. mit [Balbolka](http://www.cross-plus-a.com/balabolka.htm)).
 * **Maschinelle Übersetzung:** Nutzung der DeepL API, um Leitfäden in der Produktionskette automatisch übersetzen zu lassen (Mit curl).
