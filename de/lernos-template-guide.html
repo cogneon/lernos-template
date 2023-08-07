@@ -218,12 +218,17 @@ class="toc-section-number">3.5</span> Leitfaden Produktionskette</a>
 id="toc-lernos-leitfaden-verzeichnisstruktur"><span
 class="toc-section-number">3.5.1</span> lernOS Leitfaden
 Verzeichnisstruktur</a></li>
-<li><a href="#lernos-produktionskette"
-id="toc-lernos-produktionskette"><span
-class="toc-section-number">3.5.2</span> lernOS Produktionskette</a></li>
+<li><a href="#lernos-produktionskette-on-premisis"
+id="toc-lernos-produktionskette-on-premisis"><span
+class="toc-section-number">3.5.2</span> lernOS Produktionskette
+(on-premisis)</a></li>
+<li><a href="#lernos-produktionskette-cloud"
+id="toc-lernos-produktionskette-cloud"><span
+class="toc-section-number">3.5.3</span> lernOS Produktionskette
+(Cloud)</a></li>
 <li><a href="#ideen-für-die-erweiterung-der-lernos-produktionskette"
 id="toc-ideen-für-die-erweiterung-der-lernos-produktionskette"><span
-class="toc-section-number">3.5.3</span> Ideen für die Erweiterung der
+class="toc-section-number">3.5.4</span> Ideen für die Erweiterung der
 lernOS Produktionskette</a></li>
 </ul></li>
 <li><a href="#toolset-für-die-produktionskette"
@@ -648,8 +653,9 @@ Jede einzelne Markdown-Datei wird in der Webversion eine einzelne Seite
 (gut für thematische Kommentierung). Das ist z.B. auch sinnvoll, wenn
 mehrere Personen gleichzeitig an den Inhalten arbeiten oder die Inhalte
 in der Webversion auf Kapitelebene kommentierbar sein sollen.</p>
-<h3 data-number="3.5.2" id="lernos-produktionskette"><span
-class="header-section-number">3.5.2</span> lernOS Produktionskette</h3>
+<h3 data-number="3.5.2" id="lernos-produktionskette-on-premisis"><span
+class="header-section-number">3.5.2</span> lernOS Produktionskette
+(on-premisis)</h3>
 <p>Für die Erstellung der Zielformate aus den Markdown-Quellen wird ein
 sog. <a href="https://de.wikipedia.org/wiki/Makefile">Makefile</a>
 verwendet. Auf Windows ist das die Datei <em>make.bat</em> (<a
@@ -708,17 +714,33 @@ ebook-convert $filename.epub $filename.mobi
 # Create Slides (revealjs)
 # echo Creating Presentation ...
 # pandoc metadata.yaml --from markdown -s --resource-path=&quot;./src&quot; -t revealjs -V theme=night -s ./slides/index.md -o ../docs/de-slides/index.html</code></pre>
-<h3 data-number="3.5.3"
+<h3 data-number="3.5.3" id="lernos-produktionskette-cloud"><span
+class="header-section-number">3.5.3</span> lernOS Produktionskette
+(Cloud)</h3>
+<p>Die lernOS Produktionskette kann über <a
+href="https://github.com/features/actions">Github Actions</a> auch in
+der Cloud betrieben werden, was deutlich einfach ist, als alle Tools auf
+dem lokalen Rechner zu installieren. Grundsätzlich funktioniert die
+Produktionskette ähnlich, wie on-premisis, mit kleinen
+Unterschieden:</p>
+<ul>
+<li><p>Der Workflow der lernOS Produktionskette wird über die Datei
+<code>.github/workflows/lernos-produktionskette.yml</code>
+gesteuert.</p></li>
+<li><p>Der Workflow läuft auf der aktuellen Ubuntu Linux
+Version.</p></li>
+<li><p>Der Workflow verwendet die <a
+href="https://hub.docker.com/r/pandoc/core">Pandoc-Docker-Container</a>
+(pandoc/core und pandoc/extra) und installiert mkdocs-material, um die
+einzelnen Artefakte zu erzeugen.</p></li>
+</ul>
+<h3 data-number="3.5.4"
 id="ideen-für-die-erweiterung-der-lernos-produktionskette"><span
-class="header-section-number">3.5.3</span> Ideen für die Erweiterung der
+class="header-section-number">3.5.4</span> Ideen für die Erweiterung der
 lernOS Produktionskette</h3>
 <p>Wie auch die Leitfäden wird die lernOS Produktionskette
 kontinuierlich erweitert. Einige Ideen für die Erweiterung:</p>
 <ul>
-<li><strong>Github Actions:</strong> aktuell ist eine automatisierte
-Produktionskette mit <a
-href="https://github.com/features/actions">GitHub Actions</a> in
-Vorbereitung.</li>
 <li><strong>OneNote:</strong> zusätzlich Produktion einer
 OneNote-Version der Leitfäden (aktuell nur als Begleitdokument, das
 manuell gepflegt werden muss).</li>
@@ -998,12 +1020,12 @@ class="header-section-number">5.1</span> Danksagungen</h2>
 Erstellung und Verwaltung von lernOS Leitfäden ermöglichen.</p>
 <h2 data-number="5.2" id="änderungshistorie"><span
 class="header-section-number">5.2</span> Änderungshistorie</h2>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 20%" />
-<col style="width: 55%" />
+<col style="width: 7%" />
 <col style="width: 14%" />
+<col style="width: 69%" />
+<col style="width: 10%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1014,6 +1036,19 @@ class="header-section-number">5.2</span> Änderungshistorie</h2>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td>0.3</td>
+<td>Simon Dückert</td>
+<td>Ergänzung Cloud-basierte Produktionskette im Kapitel
+Produktionskette</td>
+<td>07.08.2023</td>
+</tr>
+<tr class="even">
+<td>0.2</td>
+<td>Simon Dückert</td>
+<td></td>
+<td>01.01.2022</td>
+</tr>
 <tr class="odd">
 <td>0.1</td>
 <td>Simon Dückert</td>
