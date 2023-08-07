@@ -399,8 +399,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lernos-produktionskette" class="md-nav__link">
-    lernOS Produktionskette
+  <a href="#lernos-produktionskette-on-premisis" class="md-nav__link">
+    lernOS Produktionskette (on-premisis)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lernos-produktionskette-cloud" class="md-nav__link">
+    lernOS Produktionskette (Cloud)
   </a>
   
 </li>
@@ -760,8 +767,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#lernos-produktionskette" class="md-nav__link">
-    lernOS Produktionskette
+  <a href="#lernos-produktionskette-on-premisis" class="md-nav__link">
+    lernOS Produktionskette (on-premisis)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lernos-produktionskette-cloud" class="md-nav__link">
+    lernOS Produktionskette (Cloud)
   </a>
   
 </li>
@@ -943,7 +957,7 @@
 <p><strong>Hinweis:</strong> im Verzeichnis einer Sprachversion liegen zusätzlich alle produzierten Dokumente (z.B. docx, epub, html, mobi, pdf).</p>
 <p><strong>Hinweis:</strong> Für die Benennung der Verzeichnisse für weitere Sprachversionen werden die Kürzel nach <a href="https://de.wikipedia.org/wiki/Liste_der_ISO-639-1-Codes">ISO 639-1</a> verwendet.</p>
 <p><strong>Hinweis:</strong> Im src-Verzeichnis kann der Leitfaden auch auf 1-2 Unterkapitelebene in einzelne Markdown-Dateien geteilt werden. Jede einzelne Markdown-Datei wird in der Webversion eine einzelne Seite (gut für thematische Kommentierung). Das ist z.B. auch sinnvoll, wenn mehrere Personen gleichzeitig an den Inhalten arbeiten oder die Inhalte in der Webversion auf Kapitelebene kommentierbar sein sollen.</p>
-<h3 id="lernos-produktionskette">lernOS Produktionskette</h3>
+<h3 id="lernos-produktionskette-on-premisis">lernOS Produktionskette (on-premisis)</h3>
 <p>Für die Erstellung der Zielformate aus den Markdown-Quellen wird ein sog. <a href="https://de.wikipedia.org/wiki/Makefile">Makefile</a> verwendet. Auf Windows ist das die Datei <em>make.bat</em> (<a href="[https://de.wikipedia.org/wiki/Stapelverarbeitungsdatei">Stabelverarbeitungsdatei</a>), auf Mac und Linux <em>make.sh</em> (<a href="[https://de.wikipedia.org/wiki/Shellskript">Shell-Skript</a>).</p>
 <p>Ist die Produktionskette auf dem eigenen Rechner richtig eingerichtet, werden durch den Aufruf alle Zielformate automatisch generiert. Je nach Umfang und Geschwindigkeit des eigenen Rechners kann das bis zu einigen Minuten dauern.</p>
 <p><strong>Ablauf der Produktionskette:</strong></p>
@@ -995,10 +1009,22 @@ ebook-convert $filename.epub $filename.mobi
 # echo Creating Presentation ...
 # pandoc metadata.yaml --from markdown -s --resource-path=&quot;./src&quot; -t revealjs -V theme=night -s ./slides/index.md -o ../docs/de-slides/index.html
 </code></pre></div>
+<h3 id="lernos-produktionskette-cloud">lernOS Produktionskette (Cloud)</h3>
+<p>Die lernOS Produktionskette kann über <a href="https://github.com/features/actions">Github Actions</a> auch in der Cloud betrieben werden, was deutlich einfach ist, als alle Tools auf dem lokalen Rechner zu installieren. Grundsätzlich funktioniert die Produktionskette ähnlich, wie on-premisis, mit kleinen Unterschieden:</p>
+<ul>
+<li>
+<p>Der Workflow der lernOS Produktionskette wird über die Datei <code>.github/workflows/lernos-produktionskette.yml</code> gesteuert.</p>
+</li>
+<li>
+<p>Der Workflow läuft auf der aktuellen Ubuntu Linux Version.</p>
+</li>
+<li>
+<p>Der Workflow verwendet die <a href="https://hub.docker.com/r/pandoc/core">Pandoc-Docker-Container</a> (pandoc/core und pandoc/extra) und installiert mkdocs-material, um die einzelnen Artefakte zu erzeugen.</p>
+</li>
+</ul>
 <h3 id="ideen-fur-die-erweiterung-der-lernos-produktionskette">Ideen für die Erweiterung der lernOS Produktionskette</h3>
 <p>Wie auch die Leitfäden wird die lernOS Produktionskette kontinuierlich erweitert. Einige Ideen für die Erweiterung:</p>
 <ul>
-<li><strong>Github Actions:</strong> aktuell ist eine automatisierte Produktionskette mit <a href="https://github.com/features/actions">GitHub Actions</a> in Vorbereitung.</li>
 <li><strong>OneNote:</strong> zusätzlich Produktion einer OneNote-Version der Leitfäden (aktuell nur als Begleitdokument, das manuell gepflegt werden muss).</li>
 <li><strong>Audiobook:</strong> Produktion eines Audiobooks mit Kapitelmarken zum Anhören (z.B. mit <a href="http://www.cross-plus-a.com/balabolka.htm">Balbolka</a>).</li>
 <li><strong>Maschinelle Übersetzung:</strong> Nutzung der DeepL API, um Leitfäden in der Produktionskette automatisch übersetzen zu lassen (Mit curl).</li>
