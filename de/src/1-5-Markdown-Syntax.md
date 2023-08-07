@@ -2,7 +2,7 @@
 
 Die Auszeichnungssprache Markdown lässt verschiedene Stile zu, die oft auch [Markdown Flavors](https://github.com/commonmark/commonmark-spec/wiki/markdown-flavors) genannt werden (z.B. kann man eine Aufzählung mit einem * oder einem - erzeugen). Für lernOS Leitfäden wird [Commonmark](https://commonmark.org) und die [Schreib- und Formatiersyntax von GitHub](https://docs.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax) als Standard empfohlen.
 
-**Hinweis:** mkdocs verwendet für die Erstellung der Webversion [Python-Markdown](https://python-markdown.github.io), das nicht alle Elemente von Commonmark & Co. unterstützt.
+**Hinweis:** mkdocs verwendet für die Erstellung der Webversion [Python-Markdown](https://python-markdown.github.io), das nicht alle Elemente von [Commonmark](https://spec.commonmark.org/0.29/) & Co. unterstützt.
 
 Für die Erstelleung eines lernOS Leitfadens kommt man mit einer überschaubaren Anzahl von Markdown-Auszeichnungen aus:
 
