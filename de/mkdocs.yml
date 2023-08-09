@@ -62,5 +62,6 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 plugins:
-  - rss
+  - rss:
+      abstract_chars_count: -1  # -1 for full content
   - search
