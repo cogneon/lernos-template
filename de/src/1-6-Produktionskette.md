@@ -123,7 +123,7 @@ Die lernOS Produktionskette kann über [Github Actions](https://github.com/featu
 
 - Der Workflow der lernOS Produktionskette wird über die Datei `.github/workflows/lernos-produktionskette.yml` gesteuert.
 
-- Der Workflow läuft auf der aktuellen Ubuntu Linux Version.
+- Der Workflow läuft auf der aktuellen Ubuntu Linux Version (ubuntu-latest).
 
 - Der Workflow verwendet die [Pandoc-Docker-Container](https://hub.docker.com/r/pandoc/core) (pandoc/core und pandoc/extra) und installiert mkdocs-material, um die einzelnen Artefakte zu erzeugen.
 
