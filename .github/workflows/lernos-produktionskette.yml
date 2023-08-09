@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       
       # Delete Old Versions
-      - run: rm -rf ./de/${{ github.event.repository.name }}-guide.*
+      - run: rm -rf ./de/build/${{ github.event.repository.name }}-guide.*
       - run: rm -rf ./docs/de/*
 
       # Create Chapter List
@@ -28,7 +28,7 @@ jobs:
             --number-sections
             --toc
             -V lang=de-de
-            --output=./de/${{ github.event.repository.name }}-guide.docx
+            --output=./de/buidl/${{ github.event.repository.name }}-guide.docx
             ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create HTML Version (html)
@@ -41,7 +41,7 @@ jobs:
             --number-sections
             --toc
             -V lang=de-de
-            --output=./de/${{ github.event.repository.name }}-guide.html
+            --output=./de/build/${{ github.event.repository.name }}-guide.html
             ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create eBook Version (epub)
@@ -54,7 +54,7 @@ jobs:
             --number-sections
             --toc
             -V lang=de-de
-            --output=./de/${{ github.event.repository.name }}-guide.epub
+            --output=./de/build/${{ github.event.repository.name }}-guide.epub
             ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create PDF Version (pdf)
@@ -68,7 +68,7 @@ jobs:
             --toc
             -V lang=de-de
             --template /.pandoc/templates/eisvogel.latex
-            --output=./de/${{ github.event.repository.name }}-guide.pdf
+            --output=./de/build/${{ github.event.repository.name }}-guide.pdf
             ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create Web Version (mkdocs)
