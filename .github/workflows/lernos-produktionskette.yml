@@ -28,7 +28,7 @@ jobs:
             --number-sections
             --toc
             -V lang=de-de
-            --output=./de/buidl/${{ github.event.repository.name }}-guide.docx
+            --output=./de/build/${{ github.event.repository.name }}-guide.docx
             ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create HTML Version (html)
