@@ -19,6 +19,7 @@ jobs:
         run: echo "chapters=$(printf '%s ' ./de/src/[0-9]*.md)" >> "$GITHUB_OUTPUT"
       
       # Create Microsoft Word Version (docx)
+      - run: mkdir ./docs/de/download
       - uses: docker://pandoc/core
         with:
           args: >-
