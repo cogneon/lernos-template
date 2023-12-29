@@ -17,7 +17,22 @@ jobs:
       - name: Create Chapter List
         id: chapter_list
         run: echo "chapters=$(printf '%s ' ./de/src/[0-9]*.md)" >> "$GITHUB_OUTPUT"
-      
+
+      # Create Web Version (mkdocs)
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+      - uses: actions/cache@v3
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+      - run: pip install mkdocs-material
+      - run: pip install mkdocs-rss-plugin
+      - run: mkdocs build -f ./de/mkdocs.yml        
+    
       # Create Microsoft Word Version (docx)
       - run: mkdir ./docs/de/download
       - uses: docker://pandoc/core
@@ -71,21 +86,6 @@ jobs:
             --template /.pandoc/templates/eisvogel.latex
             --output=./de/build/${{ github.event.repository.name }}-guide.pdf
             ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
-
-      # Create Web Version (mkdocs)
-      - uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
-      - uses: actions/cache@v3
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-      - run: pip install mkdocs-material
-      - run: pip install mkdocs-rss-plugin
-      - run: mkdocs build -f ./de/mkdocs.yml
 
       # Geänderte Datein zurück ins Repository committen
       - uses: stefanzweifel/git-auto-commit-action@v4
