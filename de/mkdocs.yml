@@ -54,6 +54,9 @@ extra:
         - icon: fontawesome/brands/github
           link: 'https://github.com/cogneon'
     disqus: lernos
+    generator: false
+
+copyright: cogneon.de/impressum
 
 markdown_extensions:
   - pymdownx.superfences:
