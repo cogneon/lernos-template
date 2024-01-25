@@ -39,6 +39,9 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
+extra_javascript:
+  - javascripts/matomo.js
+
 repo_name: 'cogneon/lernos-template'
 repo_url: 'https://github.com/cogneon/lernos-template'
 
@@ -51,8 +54,6 @@ extra:
         - icon: fontawesome/brands/github
           link: 'https://github.com/cogneon'
     disqus: lernos
-    analytics:
-       provider: custom
 
 markdown_extensions:
   - pymdownx.superfences:
