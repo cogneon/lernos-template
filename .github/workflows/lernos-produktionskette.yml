@@ -4,19 +4,22 @@ on: push
 
 jobs:
   convert_via_pandoc:
+    strategy:
+      matrix:
+        language: [de]
     runs-on: ubuntu-latest
     steps:
       # Repository auschecken, damit Workflow es nutzen kann
       - uses: actions/checkout@v3
       
       # Delete Old Versions
-      - run: rm -rf ./de/build/${{ github.event.repository.name }}-guide.*
-      - run: rm -rf ./docs/de/*
+      - run: rm -rf ./${{ matrix.language }}/build/${{ github.event.repository.name }}-guide.*
+      - run: rm -rf ./docs/${{ matrix.language }}/*
 
       # Create Chapter List
       - name: Create Chapter List
         id: chapter_list
-        run: echo "chapters=$(printf '%s ' ./de/src/[0-9]*.md)" >> "$GITHUB_OUTPUT"
+        run: echo "chapters=$(printf '%s ' ./${{ matrix.language }}/src/[0-9]*.md)" >> "$GITHUB_OUTPUT"
 
       # Create Web Version (mkdocs)
       - uses: actions/setup-python@v4
@@ -31,61 +34,61 @@ jobs:
             mkdocs-material-
       - run: pip install mkdocs-material
       - run: pip install mkdocs-rss-plugin
-      - run: mkdocs build -f ./de/mkdocs.yml        
+      - run: mkdocs build -f ./${{ matrix.language }}/mkdocs.yml
     
       # Create Microsoft Word Version (docx)
-      - run: mkdir ./docs/de/download
+      - run: mkdir -p ./docs/${{ matrix.language }}/download
       - uses: docker://pandoc/core
         with:
           args: >-
-            ./de/metadata.yaml
+            ./${{ matrix.language }}/metadata.yaml
             --standalone
-            --resource-path=./de/src
+            --resource-path=./${{ matrix.language }}/src
             --number-sections
             --toc
-            -V lang=de-de
-            --output=./docs/de/download/${{ github.event.repository.name }}-guide.docx
-            ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
+            -V lang=${{ matrix.language }}-${{ matrix.language }}
+            --output=./docs/${{ matrix.language }}/download/${{ github.event.repository.name }}-guide.docx
+            ./${{ matrix.language }}/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create HTML Version (html)
       - uses: docker://pandoc/core
         with:
           args: >-
-            ./de/metadata.yaml
+            ./${{ matrix.language }}/metadata.yaml
             --standalone
-            --resource-path=./de/src
+            --resource-path=./${{ matrix.language }}/src
             --number-sections
             --toc
-            -V lang=de-de
-            --output=./de/build/${{ github.event.repository.name }}-guide.html
-            ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
+            -V lang=${{ matrix.language }}-${{ matrix.language }}
+            --output=./${{ matrix.language }}/build/${{ github.event.repository.name }}-guide.html
+            ./${{ matrix.language }}/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create eBook Version (epub)
       - uses: docker://pandoc/core
         with:
           args: >-
-            ./de/metadata.yaml
+            ./${{ matrix.language }}/metadata.yaml
             --standalone
-            --resource-path=./de/src
+            --resource-path=./${{ matrix.language }}/src
             --number-sections
             --toc
-            -V lang=de-de
-            --output=./de/build/${{ github.event.repository.name }}-guide.epub
-            ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
+            -V lang=${{ matrix.language }}-${{ matrix.language }}
+            --output=./${{ matrix.language }}/build/${{ github.event.repository.name }}-guide.epub
+            ./${{ matrix.language }}/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Create PDF Version (pdf)
       - uses: docker://pandoc/extra
         with:
           args: >-
-            ./de/metadata.yaml
+            ./${{ matrix.language }}/metadata.yaml
             --standalone
-            --resource-path=./de/src
+            --resource-path=./${{ matrix.language }}/src
             --number-sections
             --toc
-            -V lang=de-de
+            -V lang=${{ matrix.language }}-${{ matrix.language }}
             --template /.pandoc/templates/eisvogel.latex
-            --output=./de/build/${{ github.event.repository.name }}-guide.pdf
-            ./de/src/index.md ${{ steps.chapter_list.outputs.chapters }}
+            --output=./${{ matrix.language }}/build/${{ github.event.repository.name }}-guide.pdf
+            ./${{ matrix.language }}/src/index.md ${{ steps.chapter_list.outputs.chapters }}
 
       # Geänderte Datein zurück ins Repository committen
       - uses: stefanzweifel/git-auto-commit-action@v4
